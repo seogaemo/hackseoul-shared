@@ -3,9 +3,32 @@ syntax = "proto3";
 package user;
 
 service UserService {
-  rpc getUserById(GetUserById) returns (User) {};
+  rpc getUserById(GetUserById) returns (UserResponse) {};
+  rpc createUser(CreateUser) returns (CreateUserResponse) {};
 }
 
-message User {}
+enum Role {
+  UNSPECIFIED = 0; // 기본값 또는 알 수 없는 역할
+  ADMIN = 1;       // 관리자
+  DISTRIBUTOR = 2; // 위탁판매자
+}
 
-message GetUserById { string id = 1; }
+message UserResponse {
+  string uid = 1;
+  string name = 2;
+  string id = 3;
+  Role role = 5;
+}
+
+message GetUserById { string uid = 1; }
+
+message CreateUser { CreateUserRequest user = 1; }
+
+message CreateUserRequest {
+  string name = 1;
+  string id = 2;
+  string password = 3;
+  Role role = 4;
+}
+
+message CreateUserResponse { string uid = 1; }

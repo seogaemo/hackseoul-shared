@@ -10,26 +10,59 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "user";
 
-export interface User {
+export enum Role {
+  /** UNSPECIFIED - 기본값 또는 알 수 없는 역할 */
+  UNSPECIFIED = 0,
+  /** ADMIN - 관리자 */
+  ADMIN = 1,
+  /** DISTRIBUTOR - 위탁판매자 */
+  DISTRIBUTOR = 2,
+  UNRECOGNIZED = -1,
+}
+
+export interface UserResponse {
+  uid: string;
+  name: string;
+  id: string;
+  role: Role;
 }
 
 export interface GetUserById {
+  uid: string;
+}
+
+export interface CreateUser {
+  user: CreateUserRequest | undefined;
+}
+
+export interface CreateUserRequest {
+  name: string;
   id: string;
+  password: string;
+  role: Role;
+}
+
+export interface CreateUserResponse {
+  uid: string;
 }
 
 export const USER_PACKAGE_NAME = "user";
 
 export interface UserServiceClient {
-  getUserById(request: GetUserById): Observable<User>;
+  getUserById(request: GetUserById): Observable<UserResponse>;
+
+  createUser(request: CreateUser): Observable<CreateUserResponse>;
 }
 
 export interface UserServiceController {
-  getUserById(request: GetUserById): Promise<User> | Observable<User> | User;
+  getUserById(request: GetUserById): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
+
+  createUser(request: CreateUser): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
 }
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUserById"];
+    const grpcMethods: string[] = ["getUserById", "createUser"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
