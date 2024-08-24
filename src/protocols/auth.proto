@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "user.proto";
+import "messages/messages.proto";
+
+package auth;
+
+service AuthService {
+  rpc signIn(SignIn) returns (SignInResponse) {};
+  rpc signUp(user.CreateUserRequest) returns (messages.SuccessResponse) {};
+}
+
+message SignIn {
+  string id = 1;
+  string password = 2;
+}
+
+message SignInResponse { string token = 1; }
