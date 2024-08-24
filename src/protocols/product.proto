@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import 'messages/messages.proto';
+
+package product;
+
+service ProductService {
+  rpc createProduct(CreateProduct) returns (messages.SuccessResponse) {};
+  rpc getProduct(messages.Uid) returns (ProductResponse) {};
+}
+
+message CreateProduct {
+  string title = 1;
+  string companyId = 2;
+}
+
+message ProductResponse {
+  string uid = 1;
+  string title = 2;
+  string companyId = 3;
+}
