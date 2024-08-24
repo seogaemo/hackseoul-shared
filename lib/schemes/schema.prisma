@@ -22,7 +22,7 @@ enum Role {
 model User {
   uid      String @id @default(uuid())
   name     String
-  id       String
+  id       String @unique
   password String
   role     Role
 }
