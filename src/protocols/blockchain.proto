@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+import 'messages/messages.proto';
+
+package company;
