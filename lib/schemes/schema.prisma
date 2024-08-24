@@ -75,6 +75,7 @@ model Company {
   businessNumber String
   type           Int // 1(판매자) | 0(유통업자)
   createdAt      DateTime @default(now())
+  userId         String?
 
   pipelines Pipeline[]
   products  Product[]
