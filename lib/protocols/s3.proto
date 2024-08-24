@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package s3;
+
+service S3Service {
+  rpc uploadImage(UploadImage) returns (UploadImageResponse) {};
+}
+
+message UploadImage { string base64Image = 1; }
+
+message UploadImageResponse { string imagePath = 1; }
