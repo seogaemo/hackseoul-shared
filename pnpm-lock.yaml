@@ -11,15 +11,15 @@ importers:
       copyfiles:
         specifier: ^2.4.1
         version: 2.4.1
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       rimraf:
         specifier: ^5.0.0
         version: 5.0.10
       ts-proto:
         specifier: ^1.147.3
         version: 1.181.2
-      tsc:
-        specifier: ^2.0.4
-        version: 2.0.4
 
 packages:
 
@@ -121,6 +121,10 @@ packages:
     resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
     hasBin: true
+
+  dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
 
   dprint-node@1.0.8:
     resolution: {integrity: sha512-iVKnUtYfGrYcW1ZAlfR/F59cUVL8QIhWoBJoSjkkdua/dkWIgjZfiLMeTjiB06X0ZLkQ0M2C1VbUj/CxkIf1zg==}
@@ -294,10 +298,6 @@ packages:
     resolution: {integrity: sha512-knJ8dtjn2Pd0c5ZGZG8z9DMiD4PUY8iGI9T9tb8DvGdWRMkLpf0WcPO7G+7cmbZyxvNTAG6ci3fybEaFgMZIvg==}
     hasBin: true
 
-  tsc@2.0.4:
-    resolution: {integrity: sha512-fzoSieZI5KKJVBYGvwbVZs/J5za84f2lSTLPYf6AGiIf43tZ3GNrI1QzTLcjtyDDP4aLxd46RTZq1nQxe7+k5Q==}
-    hasBin: true
-
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
@@ -437,6 +437,8 @@ snapshots:
       which: 2.0.2
 
   detect-libc@1.0.3: {}
+
+  dotenv@16.4.5: {}
 
   dprint-node@1.0.8:
     dependencies:
@@ -630,8 +632,6 @@ snapshots:
       protobufjs: 7.4.0
       ts-poet: 6.9.0
       ts-proto-descriptors: 1.16.0
-
-  tsc@2.0.4: {}
 
   undici-types@6.19.8: {}
 
