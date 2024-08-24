@@ -45,6 +45,7 @@ model Product {
   uid       String   @id @default(uuid())
   title     String
   companyId String
+  imagePath String
   createdAt DateTime @default(now())
 
   company   Company    @relation(fields: [companyId], references: [uid])

@@ -12,10 +12,12 @@ service ProductService {
 message CreateProduct {
   string title = 1;
   string companyId = 2;
+  string base64Image = 3;
 }
 
 message ProductResponse {
   string uid = 1;
   string title = 2;
   string companyId = 3;
+  string imageUrl = 4;
 }

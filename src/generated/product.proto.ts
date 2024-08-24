@@ -14,12 +14,14 @@ export const protobufPackage = "product";
 export interface CreateProduct {
   title: string;
   companyId: string;
+  base64Image: string;
 }
 
 export interface ProductResponse {
   uid: string;
   title: string;
   companyId: string;
+  imageUrl: string;
 }
 
 export const PRODUCT_PACKAGE_NAME = "product";
