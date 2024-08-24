@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import 'messages/messages.proto';
+
+package company;
+
+service CompanyService {
+  rpc createCompany(Company) returns (messages.SuccessResponse) {};
+}
+
+message Company {
+  string name = 1;
+  string owner = 2;
+  optional string ownerPhoto = 3;
+  string phone = 4;
+  string email = 5;
+  string address = 6;
+  string licenseNumber = 7;
+  string businessNumber = 8;
+  int32 type = 9;
+}
