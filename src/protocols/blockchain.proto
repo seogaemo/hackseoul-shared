@@ -2,4 +2,4 @@ syntax = "proto3";
 
 import 'messages/messages.proto';
 
-package company;
+package blockchain;
