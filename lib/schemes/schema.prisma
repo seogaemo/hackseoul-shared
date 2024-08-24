@@ -26,3 +26,56 @@ model User {
   password String
   role     Role
 }
+
+model Pipeline {
+  uid           String   @id @default(uuid())
+  title         String
+  description   String
+  companyId     String
+  productItemId String
+  createdAt     DateTime @default(now())
+
+  company     Company  @relation(fields: [companyId], references: [uid])
+  productItem ProdItem @relation(fields: [productItemId], references: [uid])
+  Product     Product? @relation(fields: [productUid], references: [uid])
+  productUid  String?
+}
+
+model Product {
+  uid       String   @id @default(uuid())
+  title     String
+  companyId String
+  createdAt DateTime @default(now())
+
+  company   Company    @relation(fields: [companyId], references: [uid])
+  pipelines Pipeline[]
+  ProdItem  ProdItem[]
+}
+
+model ProdItem {
+  uid         String   @id @default(uuid())
+  title       String
+  productId   String
+  modelNumber String
+  createdAt   DateTime @default(now())
+
+  product   Product    @relation(fields: [productId], references: [uid])
+  pipelines Pipeline[]
+}
+
+model Company {
+  uid            String   @id @default(uuid())
+  name           String
+  owner          String
+  ownerPhoto     String
+  phone          String
+  email          String
+  address        String
+  licenseNumber  String
+  businessNumber String
+  type           Int // 1(판매자) | 0(유통업자)
+  createdAt      DateTime @default(now())
+
+  pipelines Pipeline[]
+  products  Product[]
+}
