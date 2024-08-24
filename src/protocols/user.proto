@@ -4,6 +4,7 @@ package user;
 
 service UserService {
   rpc getUserById(GetUserById) returns (UserResponse) {};
+  rpc getUserByUid(GetUserByUid) returns (UserResponse) {};
   rpc createUser(CreateUser) returns (CreateUserResponse) {};
 }
 
@@ -20,7 +21,9 @@ message UserResponse {
   Role role = 5;
 }
 
-message GetUserById { string uid = 1; }
+message GetUserById { string id = 1; }
+
+message GetUserByUid { string uid = 1; }
 
 message CreateUser { CreateUserRequest user = 1; }
 
