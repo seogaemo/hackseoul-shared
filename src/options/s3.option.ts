@@ -5,7 +5,7 @@ import { GrpcOptions, Transport } from "@nestjs/microservices";
 
 import { getServiceHost } from "../constants/env";
 
-export const servicePort = 30004;
+export const servicePort = 30005;
 
 export const grpcClientOptions: GrpcOptions = addReflectionToGrpcConfig({
   transport: Transport.GRPC,
