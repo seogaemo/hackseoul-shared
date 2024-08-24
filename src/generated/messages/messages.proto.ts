@@ -12,4 +12,8 @@ export interface SuccessResponse {
   success: boolean;
 }
 
+export interface Uid {
+  uid: string;
+}
+
 export const MESSAGES_PACKAGE_NAME = "messages";

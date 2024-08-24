@@ -7,6 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
+import { Uid } from "./messages/messages.proto";
 
 export const protobufPackage = "user";
 
@@ -55,7 +56,7 @@ export const USER_PACKAGE_NAME = "user";
 export interface UserServiceClient {
   getUserById(request: GetUserById): Observable<UserResponse>;
 
-  getUserByUid(request: GetUserByUid): Observable<UserResponse>;
+  getUserByUid(request: Uid): Observable<UserResponse>;
 
   createUser(request: CreateUser): Observable<CreateUserResponse>;
 }
@@ -63,7 +64,7 @@ export interface UserServiceClient {
 export interface UserServiceController {
   getUserById(request: GetUserById): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
 
-  getUserByUid(request: GetUserByUid): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
+  getUserByUid(request: Uid): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
 
   createUser(request: CreateUser): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
 }

@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
-import { SuccessResponse } from "./messages/messages.proto";
+import { SuccessResponse, Uid } from "./messages/messages.proto";
 export declare const protobufPackage = "company";
-export interface Company {
+export interface CreateCompany {
     name: string;
     owner: string;
     ownerPhoto?: string | undefined;
@@ -12,12 +12,26 @@ export interface Company {
     businessNumber: string;
     type: number;
 }
+export interface CompanyResponse {
+    uid: string;
+    name: string;
+    owner: string;
+    ownerPhoto: string;
+    phone: string;
+    email: string;
+    address: string;
+    licenseNumber: string;
+    businessNumber: string;
+    type: number;
+}
 export declare const COMPANY_PACKAGE_NAME = "company";
 export interface CompanyServiceClient {
-    createCompany(request: Company): Observable<SuccessResponse>;
+    createCompany(request: CreateCompany): Observable<SuccessResponse>;
+    getCompany(request: Uid): Observable<CompanyResponse>;
 }
 export interface CompanyServiceController {
-    createCompany(request: Company): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+    createCompany(request: CreateCompany): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+    getCompany(request: Uid): Promise<CompanyResponse> | Observable<CompanyResponse> | CompanyResponse;
 }
 export declare function CompanyServiceControllerMethods(): (constructor: Function) => void;
 export declare const COMPANY_SERVICE_NAME = "CompanyService";

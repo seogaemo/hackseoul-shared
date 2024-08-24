@@ -3,3 +3,5 @@ syntax = "proto3";
 package messages;
 
 message SuccessResponse { bool success = 1; }
+
+message Uid { string uid = 1; }

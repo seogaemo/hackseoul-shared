@@ -7,11 +7,11 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { SuccessResponse } from "./messages/messages.proto";
+import { SuccessResponse, Uid } from "./messages/messages.proto";
 
 export const protobufPackage = "company";
 
-export interface Company {
+export interface CreateCompany {
   name: string;
   owner: string;
   ownerPhoto?: string | undefined;
@@ -23,19 +23,36 @@ export interface Company {
   type: number;
 }
 
+export interface CompanyResponse {
+  uid: string;
+  name: string;
+  owner: string;
+  ownerPhoto: string;
+  phone: string;
+  email: string;
+  address: string;
+  licenseNumber: string;
+  businessNumber: string;
+  type: number;
+}
+
 export const COMPANY_PACKAGE_NAME = "company";
 
 export interface CompanyServiceClient {
-  createCompany(request: Company): Observable<SuccessResponse>;
+  createCompany(request: CreateCompany): Observable<SuccessResponse>;
+
+  getCompany(request: Uid): Observable<CompanyResponse>;
 }
 
 export interface CompanyServiceController {
-  createCompany(request: Company): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+  createCompany(request: CreateCompany): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+
+  getCompany(request: Uid): Promise<CompanyResponse> | Observable<CompanyResponse> | CompanyResponse;
 }
 
 export function CompanyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createCompany"];
+    const grpcMethods: string[] = ["createCompany", "getCompany"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("CompanyService", method)(constructor.prototype[method], method, descriptor);
