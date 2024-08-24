@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rimraf ./lib && npm run build:proto && npm run build:tsc && npm run build:copy",
     "build:tsc": "tsc -b",
-    "build:copy": "copyfiles --up 1 src/protocols/**/* lib && copyfiles --up 1 src/schemes/**/* lib",
+    "build:copy": "copyfiles --up 1 src/protocols/* lib && copyfiles --up 1 src/protocols/**/* lib && copyfiles --up 1 src/schemes/* lib",
     "build:proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.proto --ts_proto_out=./src/generated -I ./src/protocols ./src/protocols/*.proto --ts_proto_opt=useDate=true"
   },
   "devDependencies": {
