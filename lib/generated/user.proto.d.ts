@@ -13,6 +13,9 @@ export interface UserResponse {
     role: Role;
 }
 export interface GetUserById {
+    id: string;
+}
+export interface GetUserByUid {
     uid: string;
 }
 export interface CreateUser {
@@ -30,10 +33,12 @@ export interface CreateUserResponse {
 export declare const USER_PACKAGE_NAME = "user";
 export interface UserServiceClient {
     getUserById(request: GetUserById): Observable<UserResponse>;
+    getUserByUid(request: GetUserByUid): Observable<UserResponse>;
     createUser(request: CreateUser): Observable<CreateUserResponse>;
 }
 export interface UserServiceController {
     getUserById(request: GetUserById): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
+    getUserByUid(request: GetUserByUid): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
     createUser(request: CreateUser): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
 }
 export declare function UserServiceControllerMethods(): (constructor: Function) => void;

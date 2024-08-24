@@ -28,6 +28,10 @@ export interface UserResponse {
 }
 
 export interface GetUserById {
+  id: string;
+}
+
+export interface GetUserByUid {
   uid: string;
 }
 
@@ -51,18 +55,22 @@ export const USER_PACKAGE_NAME = "user";
 export interface UserServiceClient {
   getUserById(request: GetUserById): Observable<UserResponse>;
 
+  getUserByUid(request: GetUserByUid): Observable<UserResponse>;
+
   createUser(request: CreateUser): Observable<CreateUserResponse>;
 }
 
 export interface UserServiceController {
   getUserById(request: GetUserById): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
 
+  getUserByUid(request: GetUserByUid): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
+
   createUser(request: CreateUser): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
 }
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUserById", "createUser"];
+    const grpcMethods: string[] = ["getUserById", "getUserByUid", "createUser"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
