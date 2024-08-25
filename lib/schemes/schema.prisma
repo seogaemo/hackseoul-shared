@@ -34,11 +34,6 @@ model Pipeline {
   companyId     String
   productItemId String
   createdAt     DateTime @default(now())
-
-  company     Company  @relation(fields: [companyId], references: [uid])
-  productItem ProdItem @relation(fields: [productItemId], references: [uid])
-  Product     Product? @relation(fields: [productUid], references: [uid])
-  productUid  String?
 }
 
 model Product {
@@ -47,10 +42,6 @@ model Product {
   companyId String
   imagePath String
   createdAt DateTime @default(now())
-
-  company   Company    @relation(fields: [companyId], references: [uid])
-  pipelines Pipeline[]
-  ProdItem  ProdItem[]
 }
 
 model ProdItem {
@@ -59,9 +50,6 @@ model ProdItem {
   productId   String
   modelNumber String
   createdAt   DateTime @default(now())
-
-  product   Product    @relation(fields: [productId], references: [uid])
-  pipelines Pipeline[]
 }
 
 model Company {
@@ -77,7 +65,4 @@ model Company {
   type           Int // 1(판매자) | 0(유통업자)
   createdAt      DateTime @default(now())
   userId         String?
-
-  pipelines Pipeline[]
-  products  Product[]
 }

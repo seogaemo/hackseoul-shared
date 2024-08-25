@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      protobufjs:
+        specifier: ^7.4.0
+        version: 7.4.0
     devDependencies:
       copyfiles:
         specifier: ^2.4.1

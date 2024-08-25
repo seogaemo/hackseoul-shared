@@ -5,7 +5,74 @@
 // source: blockchain.proto
 
 /* eslint-disable */
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { wrappers } from "protobufjs";
+import { Observable } from "rxjs";
+import { Uid } from "./messages/messages.proto";
 
-export const protobufPackage = "company";
+export const protobufPackage = "blockchain";
 
-export const COMPANY_PACKAGE_NAME = "company";
+export interface GetProdItemResponse {
+  uid: string;
+  title: string;
+  productId: string;
+  modelNumber: string;
+  createdAt: Date | undefined;
+}
+
+export interface CreateProdItemRequest {
+  title: string;
+  productId: string;
+  modelNumber: string;
+}
+
+export interface CreatePipelineRequest {
+  title: string;
+  description: string;
+  companyId: string;
+  productItemId: string;
+}
+
+export const BLOCKCHAIN_PACKAGE_NAME = "blockchain";
+
+wrappers[".google.protobuf.Timestamp"] = {
+  fromObject(value: Date) {
+    return { seconds: value.getTime() / 1000, nanos: (value.getTime() % 1000) * 1e6 };
+  },
+  toObject(message: { seconds: number; nanos: number }) {
+    return new Date(message.seconds * 1000 + message.nanos / 1e6);
+  },
+} as any;
+
+export interface BlockchainServiceClient {
+  getProdItem(request: Uid): Observable<GetProdItemResponse>;
+
+  createProdItem(request: CreateProdItemRequest): Observable<Uid>;
+
+  createPipeline(request: CreatePipelineRequest): Observable<Uid>;
+}
+
+export interface BlockchainServiceController {
+  getProdItem(request: Uid): Promise<GetProdItemResponse> | Observable<GetProdItemResponse> | GetProdItemResponse;
+
+  createProdItem(request: CreateProdItemRequest): Promise<Uid> | Observable<Uid> | Uid;
+
+  createPipeline(request: CreatePipelineRequest): Promise<Uid> | Observable<Uid> | Uid;
+}
+
+export function BlockchainServiceControllerMethods() {
+  return function (constructor: Function) {
+    const grpcMethods: string[] = ["getProdItem", "createProdItem", "createPipeline"];
+    for (const method of grpcMethods) {
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("BlockchainService", method)(constructor.prototype[method], method, descriptor);
+    }
+    const grpcStreamMethods: string[] = [];
+    for (const method of grpcStreamMethods) {
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("BlockchainService", method)(constructor.prototype[method], method, descriptor);
+    }
+  };
+}
+
+export const BLOCKCHAIN_SERVICE_NAME = "BlockchainService";
