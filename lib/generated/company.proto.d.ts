@@ -11,6 +11,7 @@ export interface CreateCompany {
     licenseNumber: string;
     businessNumber: string;
     type: number;
+    userId: string;
 }
 export interface CompanyResponse {
     uid: string;
@@ -23,6 +24,7 @@ export interface CompanyResponse {
     licenseNumber: string;
     businessNumber: string;
     type: number;
+    userId: string;
 }
 export declare const COMPANY_PACKAGE_NAME = "company";
 export interface CompanyServiceClient {
