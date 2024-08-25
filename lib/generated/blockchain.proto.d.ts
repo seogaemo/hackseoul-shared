@@ -8,6 +8,17 @@ export interface GetProdItemResponse {
     modelNumber: string;
     createdAt: Date | undefined;
 }
+export interface Pipeline {
+    uid: string;
+    title: string;
+    description: string;
+    companyId: string;
+    productItemId: string;
+    createdAt: Date | undefined;
+}
+export interface GetPipelineResponse {
+    pipelines: Pipeline[];
+}
 export interface CreateProdItemRequest {
     title: string;
     productId: string;
@@ -22,11 +33,13 @@ export interface CreatePipelineRequest {
 export declare const BLOCKCHAIN_PACKAGE_NAME = "blockchain";
 export interface BlockchainServiceClient {
     getProdItem(request: Uid): Observable<GetProdItemResponse>;
+    getPipelines(request: Uid): Observable<GetPipelineResponse>;
     createProdItem(request: CreateProdItemRequest): Observable<Uid>;
     createPipeline(request: CreatePipelineRequest): Observable<Uid>;
 }
 export interface BlockchainServiceController {
     getProdItem(request: Uid): Promise<GetProdItemResponse> | Observable<GetProdItemResponse> | GetProdItemResponse;
+    getPipelines(request: Uid): Promise<GetPipelineResponse> | Observable<GetPipelineResponse> | GetPipelineResponse;
     createProdItem(request: CreateProdItemRequest): Promise<Uid> | Observable<Uid> | Uid;
     createPipeline(request: CreatePipelineRequest): Promise<Uid> | Observable<Uid> | Uid;
 }

@@ -33,6 +33,8 @@ model Pipeline {
   description   String
   companyId     String
   productItemId String
+  txId          String?
+  blockNum      Int?
   createdAt     DateTime @default(now())
 }
 
@@ -49,6 +51,8 @@ model ProdItem {
   title       String
   productId   String
   modelNumber String
+  txId        String?
+  blockNum    Int?
   createdAt   DateTime @default(now())
 }
 

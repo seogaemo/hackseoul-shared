@@ -20,6 +20,19 @@ export interface GetProdItemResponse {
   createdAt: Date | undefined;
 }
 
+export interface Pipeline {
+  uid: string;
+  title: string;
+  description: string;
+  companyId: string;
+  productItemId: string;
+  createdAt: Date | undefined;
+}
+
+export interface GetPipelineResponse {
+  pipelines: Pipeline[];
+}
+
 export interface CreateProdItemRequest {
   title: string;
   productId: string;
@@ -47,6 +60,8 @@ wrappers[".google.protobuf.Timestamp"] = {
 export interface BlockchainServiceClient {
   getProdItem(request: Uid): Observable<GetProdItemResponse>;
 
+  getPipelines(request: Uid): Observable<GetPipelineResponse>;
+
   createProdItem(request: CreateProdItemRequest): Observable<Uid>;
 
   createPipeline(request: CreatePipelineRequest): Observable<Uid>;
@@ -55,6 +70,8 @@ export interface BlockchainServiceClient {
 export interface BlockchainServiceController {
   getProdItem(request: Uid): Promise<GetProdItemResponse> | Observable<GetProdItemResponse> | GetProdItemResponse;
 
+  getPipelines(request: Uid): Promise<GetPipelineResponse> | Observable<GetPipelineResponse> | GetPipelineResponse;
+
   createProdItem(request: CreateProdItemRequest): Promise<Uid> | Observable<Uid> | Uid;
 
   createPipeline(request: CreatePipelineRequest): Promise<Uid> | Observable<Uid> | Uid;
@@ -62,7 +79,7 @@ export interface BlockchainServiceController {
 
 export function BlockchainServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getProdItem", "createProdItem", "createPipeline"];
+    const grpcMethods: string[] = ["getProdItem", "getPipelines", "createProdItem", "createPipeline"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BlockchainService", method)(constructor.prototype[method], method, descriptor);

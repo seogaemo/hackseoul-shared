@@ -7,6 +7,7 @@ package blockchain;
 
 service BlockchainService {
   rpc getProdItem(messages.Uid) returns (GetProdItemResponse) {};
+  rpc getPipelines(messages.Uid) returns (GetPipelineResponse) {};
   rpc createProdItem(CreateProdItemRequest) returns (messages.Uid) {};
   rpc createPipeline(CreatePipelineRequest) returns (messages.Uid) {};
 }
@@ -17,6 +18,19 @@ message GetProdItemResponse {
   string productId = 3;
   string modelNumber = 4;
   google.protobuf.Timestamp createdAt = 5;
+}
+
+message Pipeline {
+  string uid = 1;
+  string title = 2;
+  string description = 3;
+  string companyId = 4;
+  string productItemId = 5;
+  google.protobuf.Timestamp createdAt = 6;
+}
+
+message GetPipelineResponse {
+  repeated Pipeline pipelines = 1;
 }
 
 message CreateProdItemRequest {
