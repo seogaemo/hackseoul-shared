@@ -1,13 +1,15 @@
 syntax = "proto3";
 
 import "user.proto";
+
 import "messages/messages.proto";
 
 package auth;
 
 service AuthService {
-  rpc signIn(SignIn) returns (SignInResponse) {};
+  rpc signIn(SignIn) returns (Token) {};
   rpc signUp(user.CreateUserRequest) returns (messages.SuccessResponse) {};
+  rpc validateToken(Token) returns (messages.Uid) {};
 }
 
 message SignIn {
@@ -15,4 +17,4 @@ message SignIn {
   string password = 2;
 }
 
-message SignInResponse { string token = 1; }
+message Token { string token = 1; }

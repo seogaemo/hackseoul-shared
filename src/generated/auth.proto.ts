@@ -7,7 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { SuccessResponse } from "./messages/messages.proto";
+import { SuccessResponse, Uid } from "./messages/messages.proto";
 import { CreateUserRequest } from "./user.proto";
 
 export const protobufPackage = "auth";
@@ -17,27 +17,31 @@ export interface SignIn {
   password: string;
 }
 
-export interface SignInResponse {
+export interface Token {
   token: string;
 }
 
 export const AUTH_PACKAGE_NAME = "auth";
 
 export interface AuthServiceClient {
-  signIn(request: SignIn): Observable<SignInResponse>;
+  signIn(request: SignIn): Observable<Token>;
 
   signUp(request: CreateUserRequest): Observable<SuccessResponse>;
+
+  validateToken(request: Token): Observable<Uid>;
 }
 
 export interface AuthServiceController {
-  signIn(request: SignIn): Promise<SignInResponse> | Observable<SignInResponse> | SignInResponse;
+  signIn(request: SignIn): Promise<Token> | Observable<Token> | Token;
 
   signUp(request: CreateUserRequest): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+
+  validateToken(request: Token): Promise<Uid> | Observable<Uid> | Uid;
 }
 
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["signIn", "signUp"];
+    const grpcMethods: string[] = ["signIn", "signUp", "validateToken"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
